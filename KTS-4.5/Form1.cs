@@ -18,6 +18,17 @@ namespace KTS
         private BindingSource bsUsers=new BindingSource();
         public User SelectedUser;
         public Device SelectedDevice;
+        public delegate void AdminChanged(bool isadmin);
+        public event AdminChanged adminChanged;
+        private bool isAdmin=false;
+        public bool IsAdmin {
+            get
+            { return isAdmin; }
+            set {
+                ChangeAdmin(value);
+                isAdmin = value; }
+        }
+        string PassFileName = "conf.cfg";
         public Form1()
         {
             InitializeComponent();
@@ -26,6 +37,7 @@ namespace KTS
             cbSelectUser.SelectedIndexChanged += CbSelectUser_SelectedIndexChanged;
             lbDevices.SelectedIndexChanged += LbDevices_SelectedIndexChanged;
             dgvFix.SelectionChanged+= dgvFix_SelectedIndexChanged;
+            adminChanged += ChangeAdmin;
             #endregion
             dtpFrom.Value = new DateTime(DateTime.Today.Year, 1, 1);
             dtpTo.Value = DateTime.Today;
@@ -37,6 +49,18 @@ namespace KTS
 
 
 
+        }
+        //event Changing admin status
+        private void ChangeAdmin(bool isadmin)
+        {
+            if (isadmin)
+            {
+                this.Text = "КТС - Администратор";
+            }
+            else
+            {
+                this.Text = "КТС";
+            }
         }
 
         /// <summary>
@@ -93,22 +117,37 @@ namespace KTS
         //Select User -> Display devices
         private void CbSelectUser_SelectedIndexChanged(object sender, EventArgs e)
         {
-        //    lbDevices.Items.Clear();
+            //    lbDevices.Items.Clear();
+            
             if (cbSelectUser.SelectedItem == null) return;
             DB.Users.Load();
             User user = cbSelectUser.SelectedItem as User;
             if (user == null) return;
             if (DB.Users.Count() == 0) return;
             SelectedUser=user;
-            var userDevs = DB.GetDevsByUser(user).Distinct();
+            
+
+            ShowDevicesByUsers(new List<User>() {user });
+        }
+
+        /// <summary>
+        /// Выводит список оборудования в lbDevices для указанных работников
+        /// </summary>
+        /// <param name="users"></param>
+       public void ShowDevicesByUsers(List<User> users)
+        {
+            List<Device> AllDevs = new List<Device>();
+            foreach (var user in users)
+            {
+                AllDevs.AddRange(DB.GetDevsByUser(user).Distinct());
+            }
+            var userDevs = AllDevs.Distinct();
             if (userDevs == null) return;
             lbDevices.Items.Clear();
             lbDevices.Items.AddRange(userDevs.ToArray());
-            
         }
-
-        //view all Executed profilactics
-		 private void dgvFix_SelectedIndexChanged(object sender, EventArgs e)
+         //view all Executed profilactics
+         private void dgvFix_SelectedIndexChanged(object sender, EventArgs e)
         {
 
             ShowSelectedProfilacticsEXE();
@@ -144,6 +183,7 @@ namespace KTS
             DB.Devices.Load();
         }
 
+        //редактирование профилактик
         private void профилактикиToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -273,6 +313,50 @@ UserForms.ProfilacticsForm ProfForm = new UserForms.ProfilacticsForm(DB);
             ShowSelectedProfilacticsEXE();
         }
 
-        
+        //Авторизация
+        private void админToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (IsAdmin) { IsAdmin = false; return; }
+                    
+                if(!System.IO.File.Exists(PassFileName)) { MessageBox.Show("Пароль администратора не задан"); return; }
+                string readpass = System.IO.File.ReadAllText(PassFileName).Trim();
+                if (string.IsNullOrWhiteSpace(readpass)) { MessageBox.Show("Пароль администратора не задан"); return; }
+                UserForms.LoginForm LF = new UserForms.LoginForm(readpass);
+                var dr=LF.ShowDialog();
+                if(dr!=DialogResult.OK) { return; }
+                if (LF.Password.Text == readpass)
+                {
+                    IsAdmin = true;
+                    
+                }
+
+            }
+            catch (Exception ex)
+            {
+MessageBox.Show(ex.Message, "Authorize");
+            }
+        }
+
+
+        //CheckBox ВСЕ РАБОТНИКИ
+        private void AllUsers_CheckedChanged(object sender, EventArgs e)
+        {
+            if (AllUsers.Checked)
+            {
+                cbSelectUser.Enabled = false;
+                ShowDevicesByUsers(DB.ListUsers());
+                return;
+            }
+            else if (SelectedUser != null) ShowDevicesByUsers(new List<User>() { SelectedUser });
+            cbSelectUser.Enabled = true;
+        }
+
+        //CheckBox ВСЁ ОБОРУДОВАНИЕ
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+          
+        }
     }
 }

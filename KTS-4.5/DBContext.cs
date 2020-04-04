@@ -85,15 +85,16 @@ namespace KTS
             }
             return list.ToArray();
         }
-        public User[] ListUsers()
+        public List<User> ListUsers()
         {
             List<User> returnUsers = new List<User>();
             foreach (var user in Users)
             {
                 returnUsers.Add(user);
             }
-            return returnUsers.ToArray();
+            return returnUsers;
         }
+        
         public string[] DevList()
         {
             var list = new List<string>();

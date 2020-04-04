@@ -84,6 +84,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UserForms\DevicesForm.Designer.cs" />
+    <Compile Include="UserForms\LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserForms\LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserForms\ProfilacticsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -106,6 +112,9 @@
     </Compile>
     <EmbeddedResource Include="UserForms\AddUserForm.resx" />
     <EmbeddedResource Include="UserForms\DevicesForm.resx" />
+    <EmbeddedResource Include="UserForms\LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserForms\ProfilacticsForm.resx" />
     <EmbeddedResource Include="UserForms\UsersForm.resx" />
     <None Include="packages.config" />
