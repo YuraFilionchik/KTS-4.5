@@ -72,23 +72,7 @@ namespace KTS
         {
             try
             {
-                Device selectedDevice = (sender as ListBox).SelectedItem as Device; //выбранное оборудование
-                SelectedDevice=selectedDevice??null;
-                //теперь ищем закрепленные профилактики для него
-                DB.Profilactics.Load();
-                DB.Devices.Load();
-                DB.Users.Load();
-                if (cbSelectUser.SelectedItem == null) return;                
-                User user = cbSelectUser.SelectedItem as User;
-                if (user == null) return;
-                if (DB.Users.Count() == 0) return;
-                var FixProf = DB.Profilactics.Local.Where(x => x.device.DeviceId == selectedDevice.DeviceId && x.user.UserId==user.UserId);
-                if (FixProf == null) return;
-                //вывод закрепленных профилактив в DataGridView dgvFix
-                BindingSource bsFix = new BindingSource();
-                bsFix.DataSource = FixProf;
-                dgvFix.DataSource = bsFix;
-                ColorRowsDGVFix();
+                ShowFixProfilactics();
 
             }
             catch (Exception ex)
@@ -97,6 +81,54 @@ namespace KTS
             }
         }
 
+        /// <summary>
+        /// выводит список закрепленных профилактик для выбранных пользователя и оборудования 
+        /// и проверка статуса CheckBox Alluser and Alldevices
+        /// </summary>
+        public void ShowFixProfilactics()
+        {
+            try
+            {
+                Device selectedDevice = lbDevices.SelectedItem as Device; //выбранное оборудование
+                SelectedDevice = selectedDevice ?? null;
+                //теперь ищем закрепленные профилактики для него
+                DB.Profilactics.Load();
+                DB.Devices.Load();
+                DB.Users.Load();
+                if (cbSelectUser.SelectedItem == null && !AllUsers.Checked) return;
+                IEnumerable<Profilactic> FixProf;
+                if (AllUsers.Checked)//выбраны все работники
+                {
+                    if (AllDevices.Checked)//Show ALL profilactics
+                        FixProf = DB.Profilactics.Local;
+                    else    //show profilactics of All Users for Selected Device
+                        FixProf = DB.Profilactics.Local.Where(x => x.device.DeviceId == selectedDevice.DeviceId);
+                }
+                else //выбран 1 работник
+                {
+                    User user = cbSelectUser.SelectedItem as User;
+                    if (user == null) return;
+                    if (DB.Users.Count() == 0) return;
+                    if (AllDevices.Checked) //Show all devices of selected user
+                        FixProf = DB.Profilactics.Local.Where(x => x.user.UserId == user.UserId);
+                    else                    //show profilactics of Selected User for Selected Device
+                        FixProf = DB.Profilactics.Local.Where(x => x.device.DeviceId == selectedDevice.DeviceId && x.user.UserId == user.UserId);
+                }
+
+
+                if (FixProf == null) return;
+                //вывод закрепленных профилактив в DataGridView dgvFix
+                BindingSource bsFix = new BindingSource();
+                bsFix.DataSource = FixProf;
+                dgvFix.DataSource = bsFix;
+                ColorRowsDGVFix();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Показ закрепленных профилактик");
+             
+            }
+        }
         //Раскрашивание строк профилактик в зависимости от сроков последней отмеченной профилактики
         private void ColorRowsDGVFix()
         {
@@ -145,6 +177,7 @@ namespace KTS
             if (userDevs == null) return;
             lbDevices.Items.Clear();
             lbDevices.Items.AddRange(userDevs.ToArray());
+            if (lbDevices.Items.Count != 0 && lbDevices.SelectedItems.Count == 0) lbDevices.SelectedIndex = 0;//Select first item if no one selected
         }
          //view all Executed profilactics
          private void dgvFix_SelectedIndexChanged(object sender, EventArgs e)
@@ -235,16 +268,35 @@ UserForms.ProfilacticsForm ProfForm = new UserForms.ProfilacticsForm(DB);
                 {
                     listID.Add((int)row.Cells[0].Value);
                 }
+                DB.Executions.Load();
                 IQueryable<Execution> allExe = null;
                 //для каждого ID профилактики выводим список выполненных
+               
                 for (int i = 0; i < listID.Count; i++)
                 {
                     int id = listID[i];
-
-                    var exeList = DB.Executions.Where(
-                    x => x.DeviceId == SelectedDevice.DeviceId &&
-                    x.UserId == SelectedUser.UserId &&
-                    x.ProfId == id);
+                        IQueryable<Execution> exeList;
+                        // ПРОВЕРЯЕМ СОСТОЯНИЕ ЧЕКБОКСОВ ALLUsers AllDevices
+                        if (AllUsers.Checked && AllDevices.Checked) //ALL USERS ALL DEVICES
+                          exeList=  DB.Executions.Where(
+                    x =>x.ProfId == id); else
+                    if (AllUsers.Checked) //All Users and selected Device
+                        {
+                            exeList = DB.Executions.Where(
+                    x => x.DeviceId == SelectedDevice.DeviceId
+                    && x.ProfId == id);
+                        }
+                        else if (AllDevices.Checked) //Selected User and ALL DEVICES
+                        {
+                            exeList = DB.Executions.Where(
+                            x =>x.UserId == SelectedUser.UserId &&
+                            x.ProfId == id);
+                        }
+                        else// Selected User and Selected device
+                            exeList = DB.Executions.Where(
+                            x => x.DeviceId == SelectedDevice.DeviceId &&
+                            x.UserId == SelectedUser.UserId &&
+                            x.ProfId == id);
                     if (i == 0) allExe = exeList;
                     else allExe = allExe.Concat(exeList);
 
@@ -351,12 +403,14 @@ MessageBox.Show(ex.Message, "Authorize");
             }
             else if (SelectedUser != null) ShowDevicesByUsers(new List<User>() { SelectedUser });
             cbSelectUser.Enabled = true;
+            if (lbDevices.Items.Count != 0 && lbDevices.SelectedItems.Count == 0) lbDevices.SelectedIndex = 0;//Select first item if no one selected
         }
 
         //CheckBox ВСЁ ОБОРУДОВАНИЕ
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-          
+            if (lbDevices.Items.Count!=0 && lbDevices.SelectedItems.Count == 0) lbDevices.SelectedIndex = 0;//Select first item if no one selected
+            ShowFixProfilactics();
         }
     }
 }

@@ -68,7 +68,7 @@
             this.myContextBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bsExecute = new System.Windows.Forms.BindingSource(this.components);
             this.AllUsers = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.AllDevices = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvExecuted)).BeginInit();
             this.menuDGVexe.SuspendLayout();
@@ -429,23 +429,23 @@
             this.AllUsers.UseVisualStyleBackColor = true;
             this.AllUsers.CheckedChanged += new System.EventHandler(this.AllUsers_CheckedChanged);
             // 
-            // checkBox1
+            // AllDevices
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(98, 91);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(119, 17);
-            this.checkBox1.TabIndex = 10;
-            this.checkBox1.Text = "Все оборудование";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.AllDevices.AutoSize = true;
+            this.AllDevices.Location = new System.Drawing.Point(98, 91);
+            this.AllDevices.Name = "AllDevices";
+            this.AllDevices.Size = new System.Drawing.Size(119, 17);
+            this.AllDevices.TabIndex = 10;
+            this.AllDevices.Text = "Все оборудование";
+            this.AllDevices.UseVisualStyleBackColor = true;
+            this.AllDevices.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1171, 536);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.AllDevices);
             this.Controls.Add(this.AllUsers);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.dtpTo);
@@ -519,7 +519,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn exeID;
         private System.Windows.Forms.ToolStripMenuItem админToolStripMenuItem;
         private System.Windows.Forms.CheckBox AllUsers;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox AllDevices;
     }
 }
 
