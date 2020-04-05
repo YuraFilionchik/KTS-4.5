@@ -49,33 +49,33 @@
             this.menuDGVexe = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.удалитьЗаписиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dgvFix = new System.Windows.Forms.DataGridView();
-            this.profilacticIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.numberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.periodDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.userDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.deviceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuDGVFix = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.выполнитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.profilacticBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.myContextBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.dtpFrom = new System.Windows.Forms.DateTimePicker();
             this.dtpTo = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
+            this.AllUsers = new System.Windows.Forms.CheckBox();
+            this.AllDevices = new System.Windows.Forms.CheckBox();
+            this.profilacticIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.numberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.periodDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.userDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.deviceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.profilacticBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.myContextBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.myContextBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bsExecute = new System.Windows.Forms.BindingSource(this.components);
-            this.AllUsers = new System.Windows.Forms.CheckBox();
-            this.AllDevices = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvExecuted)).BeginInit();
             this.menuDGVexe.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFix)).BeginInit();
             this.menuDGVFix.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.profilacticBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.myContextBindingSource2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.profilacticBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.myContextBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.myContextBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsExecute)).BeginInit();
@@ -289,6 +289,95 @@
             this.dgvFix.Size = new System.Drawing.Size(407, 465);
             this.dgvFix.TabIndex = 5;
             // 
+            // menuDGVFix
+            // 
+            this.menuDGVFix.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.выполнитьToolStripMenuItem});
+            this.menuDGVFix.Name = "menuDGVFix";
+            this.menuDGVFix.Size = new System.Drawing.Size(288, 26);
+            // 
+            // выполнитьToolStripMenuItem
+            // 
+            this.выполнитьToolStripMenuItem.Name = "выполнитьToolStripMenuItem";
+            this.выполнитьToolStripMenuItem.Size = new System.Drawing.Size(287, 22);
+            this.выполнитьToolStripMenuItem.Text = "Выполнить выбранные профилактики";
+            this.выполнитьToolStripMenuItem.Click += new System.EventHandler(this.ВыполнитьToolStripMenuItemClick);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.ForeColor = System.Drawing.Color.Blue;
+            this.label2.Location = new System.Drawing.Point(259, 30);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(318, 18);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Список профилактик для оборудоания";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.ForeColor = System.Drawing.Color.Green;
+            this.label3.Location = new System.Drawing.Point(666, 30);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(236, 18);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Выполненные профилактики";
+            // 
+            // dtpFrom
+            // 
+            this.dtpFrom.CustomFormat = "dd.MMMM.yyyy";
+            this.dtpFrom.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.dtpFrom.Location = new System.Drawing.Point(904, 29);
+            this.dtpFrom.MinDate = new System.DateTime(2010, 1, 1, 0, 0, 0, 0);
+            this.dtpFrom.Name = "dtpFrom";
+            this.dtpFrom.Size = new System.Drawing.Size(123, 20);
+            this.dtpFrom.TabIndex = 7;
+            this.dtpFrom.ValueChanged += new System.EventHandler(this.dtpFrom_ValueChanged);
+            // 
+            // dtpTo
+            // 
+            this.dtpTo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.dtpTo.Location = new System.Drawing.Point(1042, 29);
+            this.dtpTo.MinDate = new System.DateTime(2010, 1, 1, 0, 0, 0, 0);
+            this.dtpTo.Name = "dtpTo";
+            this.dtpTo.Size = new System.Drawing.Size(118, 20);
+            this.dtpTo.TabIndex = 7;
+            this.dtpTo.ValueChanged += new System.EventHandler(this.dtpTo_ValueChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.label4.Location = new System.Drawing.Point(1030, 32);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(13, 17);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "-";
+            // 
+            // AllUsers
+            // 
+            this.AllUsers.AutoSize = true;
+            this.AllUsers.Location = new System.Drawing.Point(98, 30);
+            this.AllUsers.Name = "AllUsers";
+            this.AllUsers.Size = new System.Drawing.Size(101, 17);
+            this.AllUsers.TabIndex = 9;
+            this.AllUsers.Text = "Все работники";
+            this.AllUsers.UseVisualStyleBackColor = true;
+            this.AllUsers.CheckedChanged += new System.EventHandler(this.AllUsers_CheckedChanged);
+            // 
+            // AllDevices
+            // 
+            this.AllDevices.AutoSize = true;
+            this.AllDevices.Location = new System.Drawing.Point(98, 91);
+            this.AllDevices.Name = "AllDevices";
+            this.AllDevices.Size = new System.Drawing.Size(119, 17);
+            this.AllDevices.TabIndex = 10;
+            this.AllDevices.Text = "Все оборудование";
+            this.AllDevices.UseVisualStyleBackColor = true;
+            this.AllDevices.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // profilacticIdDataGridViewTextBoxColumn
             // 
             this.profilacticIdDataGridViewTextBoxColumn.DataPropertyName = "ProfilacticId";
@@ -342,69 +431,9 @@
             this.deviceDataGridViewTextBoxColumn.ReadOnly = true;
             this.deviceDataGridViewTextBoxColumn.Visible = false;
             // 
-            // menuDGVFix
-            // 
-            this.menuDGVFix.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.выполнитьToolStripMenuItem});
-            this.menuDGVFix.Name = "menuDGVFix";
-            this.menuDGVFix.Size = new System.Drawing.Size(288, 26);
-            // 
-            // выполнитьToolStripMenuItem
-            // 
-            this.выполнитьToolStripMenuItem.Name = "выполнитьToolStripMenuItem";
-            this.выполнитьToolStripMenuItem.Size = new System.Drawing.Size(287, 22);
-            this.выполнитьToolStripMenuItem.Text = "Выполнить выбранные профилактики";
-            this.выполнитьToolStripMenuItem.Click += new System.EventHandler(this.ВыполнитьToolStripMenuItemClick);
-            // 
             // profilacticBindingSource
             // 
             this.profilacticBindingSource.DataSource = typeof(KTS.Profilactic);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.ForeColor = System.Drawing.Color.Blue;
-            this.label2.Location = new System.Drawing.Point(259, 30);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(318, 18);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Список профилактик для оборудоания";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.ForeColor = System.Drawing.Color.Green;
-            this.label3.Location = new System.Drawing.Point(666, 30);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(236, 18);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Выполненные профилактики";
-            // 
-            // dtpFrom
-            // 
-            this.dtpFrom.Location = new System.Drawing.Point(904, 29);
-            this.dtpFrom.Name = "dtpFrom";
-            this.dtpFrom.Size = new System.Drawing.Size(123, 20);
-            this.dtpFrom.TabIndex = 7;
-            // 
-            // dtpTo
-            // 
-            this.dtpTo.Location = new System.Drawing.Point(1042, 29);
-            this.dtpTo.Name = "dtpTo";
-            this.dtpTo.Size = new System.Drawing.Size(118, 20);
-            this.dtpTo.TabIndex = 7;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
-            this.label4.Location = new System.Drawing.Point(1030, 32);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(13, 17);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "-";
             // 
             // myContextBindingSource1
             // 
@@ -417,28 +446,6 @@
             // bsExecute
             // 
             this.bsExecute.DataSource = typeof(KTS.Execution);
-            // 
-            // AllUsers
-            // 
-            this.AllUsers.AutoSize = true;
-            this.AllUsers.Location = new System.Drawing.Point(98, 30);
-            this.AllUsers.Name = "AllUsers";
-            this.AllUsers.Size = new System.Drawing.Size(101, 17);
-            this.AllUsers.TabIndex = 9;
-            this.AllUsers.Text = "Все работники";
-            this.AllUsers.UseVisualStyleBackColor = true;
-            this.AllUsers.CheckedChanged += new System.EventHandler(this.AllUsers_CheckedChanged);
-            // 
-            // AllDevices
-            // 
-            this.AllDevices.AutoSize = true;
-            this.AllDevices.Location = new System.Drawing.Point(98, 91);
-            this.AllDevices.Name = "AllDevices";
-            this.AllDevices.Size = new System.Drawing.Size(119, 17);
-            this.AllDevices.TabIndex = 10;
-            this.AllDevices.Text = "Все оборудование";
-            this.AllDevices.UseVisualStyleBackColor = true;
-            this.AllDevices.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // Form1
             // 
@@ -468,8 +475,8 @@
             this.menuDGVexe.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvFix)).EndInit();
             this.menuDGVFix.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.profilacticBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.myContextBindingSource2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.profilacticBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.myContextBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.myContextBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bsExecute)).EndInit();

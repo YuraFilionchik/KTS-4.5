@@ -255,8 +255,10 @@ UserForms.ProfilacticsForm ProfForm = new UserForms.ProfilacticsForm(DB);
         		MessageBox.Show(ex.Message, "Выполнение профилактик");
         	}
         }
+
         /// <summary>
         /// Выводит список выполнений для выбранных профилактик 
+        /// 
         /// </summary>
         private void ShowSelectedProfilacticsEXE()
         {
@@ -301,8 +303,10 @@ UserForms.ProfilacticsForm ProfForm = new UserForms.ProfilacticsForm(DB);
                     else allExe = allExe.Concat(exeList);
 
                 }
-
-                var groupedExe = allExe.GroupBy(x => x.ExeDate); //группировка по времени
+                DateTime From = dtpFrom.Value.Date;
+                DateTime To = dtpTo.Value.AddDays(1);
+                var FilteredExe = allExe.Where(x=>x.ExeDate>=From &&x.ExeDate<To); //DATE FILTER
+                var groupedExe = FilteredExe.GroupBy(x => x.ExeDate); //группировка по времени
                 dgvExecuted.Rows.Clear();
                 foreach (var group in groupedExe)
                 {//перебор групп datetime
@@ -411,6 +415,16 @@ MessageBox.Show(ex.Message, "Authorize");
         {
             if (lbDevices.Items.Count!=0 && lbDevices.SelectedItems.Count == 0) lbDevices.SelectedIndex = 0;//Select first item if no one selected
             ShowFixProfilactics();
+        }
+
+        private void dtpFrom_ValueChanged(object sender, EventArgs e)
+        {
+            ShowSelectedProfilacticsEXE();
+        }
+
+        private void dtpTo_ValueChanged(object sender, EventArgs e)
+        {
+            ShowSelectedProfilacticsEXE();
         }
     }
 }
