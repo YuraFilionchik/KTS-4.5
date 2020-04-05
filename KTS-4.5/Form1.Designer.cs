@@ -93,8 +93,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.менюToolStripMenuItem,
-            this.обзорToolStripMenuItem});
+            this.обзорToolStripMenuItem,
+            this.менюToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1171, 24);
@@ -108,27 +108,27 @@
             this.оборудованиеToolStripMenuItem,
             this.профилактикиToolStripMenuItem});
             this.менюToolStripMenuItem.Name = "менюToolStripMenuItem";
-            this.менюToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
-            this.менюToolStripMenuItem.Text = "Списки";
+            this.менюToolStripMenuItem.Size = new System.Drawing.Size(122, 20);
+            this.менюToolStripMenuItem.Text = "Управление";
             // 
             // добавитьРаботникаToolStripMenuItem
             // 
             this.добавитьРаботникаToolStripMenuItem.Name = "добавитьРаботникаToolStripMenuItem";
-            this.добавитьРаботникаToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.добавитьРаботникаToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.добавитьРаботникаToolStripMenuItem.Text = "Работники...";
             this.добавитьРаботникаToolStripMenuItem.Click += new System.EventHandler(this.ДобавитьРаботникаToolStripMenuItem_Click);
             // 
             // оборудованиеToolStripMenuItem
             // 
             this.оборудованиеToolStripMenuItem.Name = "оборудованиеToolStripMenuItem";
-            this.оборудованиеToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.оборудованиеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.оборудованиеToolStripMenuItem.Text = "Оборудование...";
             this.оборудованиеToolStripMenuItem.Click += new System.EventHandler(this.оборудованиеToolStripMenuItem_Click);
             // 
             // профилактикиToolStripMenuItem
             // 
             this.профилактикиToolStripMenuItem.Name = "профилактикиToolStripMenuItem";
-            this.профилактикиToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.профилактикиToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.профилактикиToolStripMenuItem.Text = "Профилактики...";
             this.профилактикиToolStripMenuItem.Click += new System.EventHandler(this.профилактикиToolStripMenuItem_Click);
             // 

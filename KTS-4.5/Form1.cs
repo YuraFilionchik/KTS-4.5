@@ -41,6 +41,11 @@ namespace KTS
             #endregion
             dtpFrom.Value = new DateTime(DateTime.Today.Year, 1, 1);
             dtpTo.Value = DateTime.Today;
+            #region Admin mode
+            menuDGVexe.Enabled = isAdmin;
+            менюToolStripMenuItem.Visible = isAdmin;
+            #endregion
+            
             #region Вывод всех пользователей
             DB.Users.Load();
             bsUsers.DataSource= DB.Users.Local.ToBindingList();
@@ -53,9 +58,12 @@ namespace KTS
         //event Changing admin status
         private void ChangeAdmin(bool isadmin)
         {
+            menuDGVexe.Enabled = isadmin;
+            менюToolStripMenuItem.Visible = isadmin;
             if (isadmin)
             {
                 this.Text = "КТС - Администратор";
+               
             }
             else
             {
